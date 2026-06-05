@@ -1,0 +1,27 @@
+version: "3.9" 
+services:  
+ app:   
+  build: .   
+  container_name: go-app   
+  command: /app   
+  environment:   
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: demo
+    MYSQL_DSN: root:root@tcp(mysql:3306)/demo    
+  
+
+ mysql:  
+   image: mysql:8.0   
+   container_name: go-db   
+   ports:  
+     - "3306:3306" 
+    volumes:     
+     - mysql_data:/var/lib/mysql  
+volumes:
+   mysql_data:  
+ports:
+ - "8080:8080"
+depends_on:
+ - mysql
+
+
